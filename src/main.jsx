@@ -7,6 +7,11 @@ import { RouterProvider } from "react-router/dom";
 import RootLayout from './Layouts/RootLayout.jsx';
 import Home from './components/Home/Home.jsx';
 import AllProducts from './components/AllProducts/AllProducts.jsx';
+import Login from './pages/Login/Login.jsx';
+import Register from './pages/Register/Register.jsx';
+import AddListings from './components/AddListings/AddListings.jsx';
+import MyListings from './components/MyListings/MyListings.jsx';
+import MyOrders from './components/MyOrders/MyOrders.jsx';
 const router = createBrowserRouter([
   {
     path:'/',
@@ -19,6 +24,26 @@ const router = createBrowserRouter([
       {
         path:'/petAndSupplies',
         Component: AllProducts
+      },
+      {
+        path:'/login',
+        Component:Login
+      },
+      {
+        path:'/register',
+        Component:Register
+      },
+      {
+        path:'/addListings',
+        element:<AddListings></AddListings>
+      },
+      {
+        path:'/myListings',
+        element:<MyListings></MyListings>
+      },
+      {
+        path:'/myOrders',
+        element:<MyOrders></MyOrders>
       }
     ]
   }
