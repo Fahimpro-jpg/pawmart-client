@@ -79,7 +79,7 @@ const AllProducts = () => {
             <p className="text-gray-500">{product.location}</p>
             <p className="font-semibold mt-1">{product.price}</p>
             <button
-              onClick={() => navigate(`/products/${product._id}`)}
+              onClick={() => navigate(`/petAndSupplies/${product._id}`)}
               className="mt-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
             >
               See Details

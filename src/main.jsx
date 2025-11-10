@@ -13,6 +13,7 @@ import AddListings from './components/AddListings/AddListings.jsx';
 import MyListings from './components/MyListings/MyListings.jsx';
 import MyOrders from './components/MyOrders/MyOrders.jsx';
 import CategoryFilteredProduct from './components/CategoryFiltered/CategoryFilteredProduct.jsx';
+import ProductDetail from './components/ProductDetail/ProductDetail.jsx';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path:'/petAndSupplies',
         Component: AllProducts
+      },
+      {
+        path:'/petAndSupplies/:id',
+        element:<ProductDetail></ProductDetail>
       },
       {
         path:'/login',
@@ -50,7 +55,10 @@ const router = createBrowserRouter([
       {
         path:'/category-filtered-product/:categoryName',
         element:<CategoryFilteredProduct></CategoryFilteredProduct>
-      }
+      ,
+    },
+   
+
     ]
   }
 ])
