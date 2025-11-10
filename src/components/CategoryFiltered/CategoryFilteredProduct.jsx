@@ -39,7 +39,7 @@ const CategoryFilteredProducts = () => {
         {products.map((product) => (
           <div
             key={product._id}
-            className="border rounded-md p-4 hover:shadow-lg transition"
+            className=" rounded-md p-4 hover:shadow-lg transition"
           >
             <img
               src={product.image}
