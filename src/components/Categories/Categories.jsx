@@ -11,11 +11,11 @@ const Categories = () => {
   };
     return (
         <div className='w-[1200px] mx-auto flex justify-around mt-15 border border-e-green-500'>
-            <div onClick={() => handleCategoryClick('Pets')} className='cursor-pointer hover:scale-105 transition-transform'>
+            <div onClick={() => handleCategoryClick('Pets (Adoption)')} className='cursor-pointer hover:scale-105 transition-transform'>
                 <h2 className='text-center text-3xl font-semibold mb-7'>Pets (Adoption)</h2>
                 <img className='w-[200px] h-[200px]' src={adoptPet} alt="" />
             </div>
-            <div onClick={() => handleCategoryClick('Food')} className='cursor-pointer hover:scale-105 transition-transform'>
+            <div onClick={() => handleCategoryClick('Pet Food')} className='cursor-pointer hover:scale-105 transition-transform'>
                 <h2 className='text-center text-3xl font-semibold mb-7'>Pet Food</h2>
                 <img className='w-[200px] h-[200px]' src={petFood} alt="" />
             </div>
@@ -23,7 +23,7 @@ const Categories = () => {
                 <h2 className='text-center text-3xl font-semibold mb-7'>Accessories</h2>
                 <img className='w-[200px] h-[200px]' src={accesories} alt="" />
             </div>
-            <div onClick={() => handleCategoryClick('Care')} className='cursor-pointer hover:scale-105 transition-transform'>
+            <div onClick={() => handleCategoryClick('Pet Care Products')} className='cursor-pointer hover:scale-105 transition-transform'>
                 <h2 className='text-center text-3xl font-semibold mb-7'>Pet Care Products</h2>
                 <img className='w-[200px] h-[200px]' src={petCareProducts} alt="" />
             </div>
