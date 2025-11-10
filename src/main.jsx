@@ -12,7 +12,8 @@ import Register from './pages/Register/Register.jsx';
 import AddListings from './components/AddListings/AddListings.jsx';
 import MyListings from './components/MyListings/MyListings.jsx';
 import MyOrders from './components/MyOrders/MyOrders.jsx';
-import Categories from './components/Categories/Categories.jsx';
+import CategoryFilteredProduct from './components/CategoryFiltered/CategoryFilteredProduct.jsx';
+
 const router = createBrowserRouter([
   {
     path:'/',
@@ -47,8 +48,8 @@ const router = createBrowserRouter([
         element:<MyOrders></MyOrders>
       },
       {
-        path:'/categoryProducts/:categoryName',
-        element:<Categories></Categories>
+        path:'/category-filtered-product/:categoryName',
+        element:<CategoryFilteredProduct></CategoryFilteredProduct>
       }
     ]
   }

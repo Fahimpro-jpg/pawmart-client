@@ -1,54 +1,33 @@
 import React from 'react';
+import adoptPet from '../../assets/download.jpeg'
+import petFood from "../../assets/petFood.jpeg"
+import accesories from '../../assets/Acccesories.jpeg'
+import petCareProducts from "../../assets/petCareProducts.jpeg"
 import { useNavigate } from 'react-router';
-
-const categories = [
-  {
-    name: "Pets (Adoption)",
-    value: "Pets",
-    icon: "🐶",
-  },
-  {
-    name: "Pet Food",
-    value: "Food",
-    icon: "🍖",
-  },
-  {
-    name: "Accessories",
-    value: "Accessories",
-    icon: "🎒",
-  },
-  {
-    name: "Pet Care Products",
-    value: "Care",
-    icon: "🧴",
-  },
-];
-
 const Categories = () => {
-    const navigate = useNavigate();
-    const handleCategoryClick = (category)=>{
-        navigate(`/categoryProducts/${category}`)
-    }
+    const navigate = useNavigate()
+    const handleCategoryClick = (category) => {
+    navigate(`/category-filtered-product/${category}`);
+  };
     return (
-         <div className="max-w-6xl mx-auto my-10 px-4">
-      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
-        🐾 Browse by Category
-      </h2>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-        {categories.map((cat) => (
-          <div
-            key={cat.value}
-            onClick={() => handleCategoryClick(cat.value)}
-            className="cursor-pointer bg-white shadow-md rounded-2xl flex flex-col items-center justify-center p-6 hover:bg-blue-50 hover:scale-105 transition-transform"
-          >
-            <div className="text-5xl mb-3">{cat.icon}</div>
-            <h3 className="text-lg font-semibold text-gray-700">
-              {cat.name}
-            </h3>
-          </div>
-        ))}
-      </div>
-    </div>
+        <div className='w-[1200px] mx-auto flex justify-around mt-15 border border-e-green-500'>
+            <div onClick={() => handleCategoryClick('Pets')} className='cursor-pointer hover:scale-105 transition-transform'>
+                <h2 className='text-center text-3xl font-semibold mb-7'>Pets (Adoption)</h2>
+                <img className='w-[200px] h-[200px]' src={adoptPet} alt="" />
+            </div>
+            <div onClick={() => handleCategoryClick('Food')} className='cursor-pointer hover:scale-105 transition-transform'>
+                <h2 className='text-center text-3xl font-semibold mb-7'>Pet Food</h2>
+                <img className='w-[200px] h-[200px]' src={petFood} alt="" />
+            </div>
+            <div onClick={() => handleCategoryClick('Accessories')} className='cursor-pointer hover:scale-105 transition-transform'>
+                <h2 className='text-center text-3xl font-semibold mb-7'>Accessories</h2>
+                <img className='w-[200px] h-[200px]' src={accesories} alt="" />
+            </div>
+            <div onClick={() => handleCategoryClick('Care')} className='cursor-pointer hover:scale-105 transition-transform'>
+                <h2 className='text-center text-3xl font-semibold mb-7'>Pet Care Products</h2>
+                <img className='w-[200px] h-[200px]' src={petCareProducts} alt="" />
+            </div>
+        </div>
     );
 };
 
