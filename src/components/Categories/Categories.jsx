@@ -10,7 +10,7 @@ const Categories = () => {
     navigate(`/category-filtered-product/${category}`);
   };
     return (
-        <div className='w-[1200px] mx-auto flex justify-around mt-15 border border-e-green-500'>
+        <div className='w-[1200px] mx-auto flex justify-around mt-15 '>
             <div onClick={() => handleCategoryClick('Pets (Adoption)')} className='cursor-pointer hover:scale-105 transition-transform'>
                 <h2 className='text-center text-3xl font-semibold mb-7'>Pets (Adoption)</h2>
                 <img className='w-[200px] h-[200px]' src={adoptPet} alt="" />
