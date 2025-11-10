@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Pet Shampoo",
+    "image": "https://example.com/shampoo.jpg",
+    "category": "Pet Care Products",
+    "location": "Dhaka",
+    "description": "Gentle herbal shampoo suitable for all dog breeds, keeps coat shiny and clean.",
+    "email": "petcareplus@gmail.com",
+    "date": "2025-11-01"
+  },
+  {
+    "name": "Flea & Tick Spray",
+    "image": "https://example.com/flea.jpg",
+    "category": "Pet Care Products",
+    "location": "Rajshahi",
+    "description": "Effective protection against fleas and ticks for both dogs and cats.",
+    "email": "tickfree@gmail.com",
+    "date": "2025-11-02"
+  },
+  {
+    "name": "Pet Ear Cleaner",
+    "image": "https://example.com/earcleaner.jpg",
+    "category": "Pet Care Products",
+    "location": "Khulna",
+    "description": "Cleans and soothes your pet’s ears to prevent infection and odor.",
+    "email": "clearear@gmail.com",
+    "date": "2025-11-04"
+  },
+  {
+    "name": "Paw Moisturizing Balm",
+    "image": "https://example.com/pawbalm.jpg",
+    "category": "Pet Care Products",
+    "location": "Sylhet",
+    "description": "Natural balm that heals cracked paws and keeps them soft and healthy.",
+    "email": "pawcare@gmail.com",
+    "date": "2025-11-05"
+  },
+  {
+    "name": "Dental Chews for Dogs",
+    "image": "https://example.com/dentalchews.jpg",
+    "category": "Pet Care Products",
+    "location": "Barishal",
+    "description": "Tasty dental chews that help maintain oral hygiene and fresh breath.",
+    "email": "smilepet@gmail.com",
+    "date": "2025-11-06"
+  },
+  {
+    "name": "Pet Vitamin Supplement",
+    "image": "https://example.com/vitamins.jpg",
+    "category": "Pet Care Products",
+    "location": "Chattogram",
+    "description": "Daily vitamin tablets that support immunity, bones, and energy levels.",
+    "email": "vitacare@gmail.com",
+    "date": "2025-11-07"
+  }
+]

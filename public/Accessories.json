@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Adjustable Dog Collar",
+    "image": "https://example.com/dogcollar.jpg",
+    "category": "Accessories",
+    "location": "Dhaka",
+    "description": "Comfortable and stylish dog collar with adjustable buckle and tag holder.",
+    "email": "petgearbd@gmail.com",
+    "date": "2025-11-01"
+  },
+  {
+    "name": "Cat Scratching Post",
+    "image": "https://example.com/scratchpost.jpg",
+    "category": "Accessories",
+    "location": "Chattogram",
+    "description": "Durable scratching post to keep your cat entertained and claws healthy.",
+    "email": "catfun@gmail.com",
+    "date": "2025-11-03"
+  },
+  {
+    "name": "Pet Travel Carrier",
+    "image": "https://example.com/carrier.jpg",
+    "category": "Accessories",
+    "location": "Rajshahi",
+    "description": "Lightweight, safe, and comfortable travel carrier for pets of all sizes.",
+    "email": "travelpets@gmail.com",
+    "date": "2025-11-04"
+  },
+  {
+    "name": "Dog Leash Rope",
+    "image": "https://example.com/leash.jpg",
+    "category": "Accessories",
+    "location": "Khulna",
+    "description": "Strong nylon rope leash with comfortable grip handle.",
+    "email": "leashbd@gmail.com",
+    "date": "2025-11-05"
+  },
+  {
+    "name": "Cat Litter Box",
+    "image": "https://example.com/litterbox.jpg",
+    "category": "Accessories",
+    "location": "Sylhet",
+    "description": "Easy-to-clean litter box with odor control system for indoor cats.",
+    "email": "littercare@gmail.com",
+    "date": "2025-11-06"
+  },
+  {
+    "name": "Pet Feeding Bowl Set",
+    "image": "https://example.com/feedingbowl.jpg",
+    "category": "Accessories",
+    "location": "Barishal",
+    "description": "Double stainless steel bowls with anti-slip base for food and water.",
+    "email": "petdine@gmail.com",
+    "date": "2025-11-07"
+  }
+]
