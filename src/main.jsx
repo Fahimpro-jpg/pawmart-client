@@ -12,6 +12,7 @@ import Register from './pages/Register/Register.jsx';
 import AddListings from './components/AddListings/AddListings.jsx';
 import MyListings from './components/MyListings/MyListings.jsx';
 import MyOrders from './components/MyOrders/MyOrders.jsx';
+import Categories from './components/Categories/Categories.jsx';
 const router = createBrowserRouter([
   {
     path:'/',
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path:'/myOrders',
         element:<MyOrders></MyOrders>
+      },
+      {
+        path:'/categoryProducts/:categoryName',
+        element:<Categories></Categories>
       }
     ]
   }
