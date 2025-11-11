@@ -15,6 +15,7 @@ import MyOrders from './components/MyOrders/MyOrders.jsx';
 import CategoryFilteredProduct from './components/CategoryFiltered/CategoryFilteredProduct.jsx';
 import ProductDetail from './components/ProductDetail/ProductDetail.jsx';
 import AuthProvider from './contexts/AuthProvider.jsx';
+import { Toaster } from 'react-hot-toast';
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
         Component: AllProducts
       },
       {
-        path:'/petAndsSupplie/:id',
+        path:'/petAndSupplies/:id',
         element:<ProductDetail></ProductDetail>
       },
       {
@@ -68,6 +69,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
       <RouterProvider router={router}></RouterProvider>
+      <Toaster position="top-right" reverseOrder={false} />
     </AuthProvider>
   </StrictMode>,
 )

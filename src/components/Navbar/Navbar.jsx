@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link, NavLink } from 'react-router';
 import logo from '../../assets/7a1c0287-194d-49f0-bf94-2fab8ac65b41.png'
+import { AuthContext } from '../../contexts/AuthContext';
 const Navbar = () => {
+  const {user,signOutUser} = use(AuthContext)
+
+  const handleSignOut = ()=>{
+    signOutUser()
+    .then()
+    .catch()
+  }
+
    const links = <>
     <li><NavLink to="/">Home</NavLink></li>
       <li><NavLink to="/petAndSupplies">Pet & Supplies</NavLink></li>
-      <li><NavLink to="/addListings">Add Listings</NavLink></li>
+      
+      {
+        user &&  <>
+        <li><NavLink to="/addListings">Add Listings</NavLink></li>
       <li><NavLink to="/myListings">My Listings</NavLink></li>
       <li><NavLink to="/myOrders">My Orders</NavLink></li>
+        </>
+      }
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
@@ -34,10 +48,20 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-      <Link className='btn border-sky-200 bg-sky-400' to='/login'>Login</Link>
-      <p className='ml-2 mr-2 text-2xl text-blue-900 font-bold'>OR</p>
-      <Link className='btn' to='/register'>Register</Link>
-  </div>
+        {user ? (
+          <Link onClick={handleSignOut} className="btn bg-red-400 border-none text-white">Sign Out</Link>
+        ) : (
+          <>
+            <Link className="btn border-sky-200 bg-sky-400 text-white" to="/login">
+              Login
+            </Link>
+            <p className="mx-2 text-2xl text-blue-900 font-bold">OR</p>
+            <Link className="btn border-sky-200 bg-amber-400 text-white" to="/register">
+              Register
+            </Link>
+          </>
+        )}
+      </div>
 </div>
     );
 };
