@@ -9,13 +9,14 @@ import Home from './components/Home/Home.jsx';
 import AllProducts from './components/AllProducts/AllProducts.jsx';
 import Login from './pages/Login/Login.jsx';
 import Register from './pages/Register/Register.jsx';
-import AddListings from './components/AddListings/AddListings.jsx';
 import MyListings from './components/MyListings/MyListings.jsx';
 import MyOrders from './components/MyOrders/MyOrders.jsx';
 import CategoryFilteredProduct from './components/CategoryFiltered/CategoryFilteredProduct.jsx';
 import ProductDetail from './components/ProductDetail/ProductDetail.jsx';
 import AuthProvider from './contexts/AuthProvider.jsx';
 import { Toaster } from 'react-hot-toast';
+import PrivateRoute from './Routes/PrivateRoute.jsx';
+import AddListing from './pages/AddListing/AddListing.jsx';
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,9 @@ const router = createBrowserRouter([
       },
       {
         path:'/petAndSupplies/:id',
-        element:<ProductDetail></ProductDetail>
+        element:<PrivateRoute>
+          <ProductDetail></ProductDetail>
+        </PrivateRoute>
       },
       {
         path:'/login',
@@ -44,7 +47,7 @@ const router = createBrowserRouter([
       },
       {
         path:'/addListings',
-        element:<AddListings></AddListings>
+        element:<AddListing></AddListing>
       },
       {
         path:'/myListings',
