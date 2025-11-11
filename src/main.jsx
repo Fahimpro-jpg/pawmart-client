@@ -14,6 +14,7 @@ import MyListings from './components/MyListings/MyListings.jsx';
 import MyOrders from './components/MyOrders/MyOrders.jsx';
 import CategoryFilteredProduct from './components/CategoryFiltered/CategoryFilteredProduct.jsx';
 import ProductDetail from './components/ProductDetail/ProductDetail.jsx';
+import AuthProvider from './contexts/AuthProvider.jsx';
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
         Component: AllProducts
       },
       {
-        path:'/petAndSupplies/:id',
+        path:'/petAndsSupplie/:id',
         element:<ProductDetail></ProductDetail>
       },
       {
@@ -65,6 +66,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <AuthProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </AuthProvider>
   </StrictMode>,
 )

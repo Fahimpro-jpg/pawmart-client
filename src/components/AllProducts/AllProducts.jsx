@@ -21,6 +21,7 @@ const AllProducts = () => {
       const res = await fetch(url);
       const data = await res.json();
       setAllProducts(data);
+  
 
       // Extract unique categories dynamically
       const uniqueCategories = [...new Set(data.map(item => item.category))];
