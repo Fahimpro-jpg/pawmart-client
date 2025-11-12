@@ -10,7 +10,7 @@ import AllProducts from './components/AllProducts/AllProducts.jsx';
 import Login from './pages/Login/Login.jsx';
 import Register from './pages/Register/Register.jsx';
 
-import MyOrders from './components/MyOrders/MyOrders.jsx';
+
 import CategoryFilteredProduct from './components/CategoryFiltered/CategoryFilteredProduct.jsx';
 import ProductDetail from './components/ProductDetail/ProductDetail.jsx';
 import AuthProvider from './contexts/AuthProvider.jsx';
@@ -18,6 +18,7 @@ import { Toaster } from 'react-hot-toast';
 import PrivateRoute from './Routes/PrivateRoute.jsx';
 import AddListing from './pages/AddListing/AddListing.jsx';
 import MyListings from './pages/MyListings/MyListings.jsx';
+import MyOrders from './pages/MyOrders/MyOrders.jsx';
 
 const router = createBrowserRouter([
   {
