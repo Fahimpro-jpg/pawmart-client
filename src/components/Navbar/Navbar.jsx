@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { use, useEffect, useState,  } from 'react';
 import { Link, NavLink } from 'react-router';
-import { FaMoon, FaSun } from 'react-icons/fa';
+import { FaMoon, FaSun, FaBars } from 'react-icons/fa';
 import logo from '../../assets/7a1c0287-194d-49f0-bf94-2fab8ac65b41.png';
 import { AuthContext } from '../../contexts/AuthContext';
+import userIcon from "../../assets/user.png";
 
 const Navbar = () => {
-  const { user, signOutUser } = useContext(AuthContext);
+  const { user, signOutUser } = use(AuthContext);
 
   // Dark mode state
   const [isDark, setIsDark] = useState(() => {
@@ -14,7 +15,7 @@ const Navbar = () => {
   });
 
   useEffect(() => {
-    const root = document.body; // Apply dark-mode class to body
+    const root = document.body;
     if (isDark) {
       root.classList.add('dark-mode');
       localStorage.setItem('pawmart-theme', 'dark');
@@ -28,23 +29,19 @@ const Navbar = () => {
 
   const handleSignOut = () => {
     signOutUser()
-      .then(() => {
-        // Optional: toast success
-      })
-      .catch(() => {
-        // Optional: handle error
-      });
+      .then(() => console.log("Signed out"))
+      .catch(err => console.error(err));
   };
 
   const links = (
     <>
-      <li><NavLink to="/">Home</NavLink></li>
-      <li><NavLink to="/petAndSupplies">Pet & Supplies</NavLink></li>
+      <li><NavLink to="/" className="font-semibold">Home</NavLink></li>
+      <li><NavLink to="/petAndSupplies" className="font-semibold">Pet & Supplies</NavLink></li>
       {user && (
         <>
-          <li><NavLink to="/addListings">Add Listings</NavLink></li>
-          <li><NavLink to="/myListings">My Listings</NavLink></li>
-          <li><NavLink to="/myOrders">My Orders</NavLink></li>
+          <li><NavLink to="/addListings" className="font-semibold">Add Listings</NavLink></li>
+          <li><NavLink to="/myListings" className="font-semibold">My Listings</NavLink></li>
+          <li><NavLink to="/myOrders" className="font-semibold">My Orders</NavLink></li>
         </>
       )}
     </>
@@ -52,60 +49,80 @@ const Navbar = () => {
 
   return (
     <div
-      className="navbar shadow-sm"
-      style={{ backgroundColor: 'var(--bg-color)', color: 'var(--text-color)' }}
+      className="navbar bg-[var(--bg-color)] text-[var(--text-color)] shadow-md px-4 sticky top-0 z-50"
     >
+      {/* Left Section - Logo */}
       <div className="navbar-start">
+        {/* Mobile dropdown */}
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
-            </svg>
-          </div>
-          <ul tabIndex="-1" className="menu menu-sm dropdown-content rounded-box z-1 mt-3 w-52 p-2 shadow"
-              style={{ backgroundColor: 'var(--bg-color)', color: 'var(--text-color)' }}
+          <label tabIndex={0} className="btn btn-ghost lg:hidden">
+            <FaBars size={20} />
+          </label>
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content mt-3 p-3 shadow bg-base-100 rounded-box w-52 z-50"
           >
             {links}
           </ul>
         </div>
 
-        <div className="flex gap-4 items-center">
-          <img className="w-[30px] h-[30px] rounded-xl" src={logo} alt="PawMart logo" />
-          <p className="text-2xl font-bold">
+        {/* Logo */}
+        <Link to="/" className="flex gap-2 items-center">
+          <img className="w-10 h-10 rounded-lg" src={logo} alt="PawMart logo" />
+          <span className="text-2xl font-bold">
             <span className="text-sky-400">Paw</span>
             <span className="text-amber-400">Mart</span>
-          </p>
-        </div>
+          </span>
+        </Link>
       </div>
 
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+      {/* Middle Section - Menu (hidden on small screens) */}
+      <div className="navbar-center hidden md:flex">
+        <ul className="menu menu-horizontal px-1 flex items-center gap-3">
           {links}
         </ul>
       </div>
 
+      {/* Right Section - Theme & User */}
       <div className="navbar-end flex items-center gap-3">
-        {/* Theme toggle */}
+        {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-          className="btn btn-ghost btn-sm rounded-full p-2 hover:opacity-80 transition"
+          className="btn btn-ghost btn-sm rounded-full hover:opacity-80 transition"
           title={isDark ? 'Light mode' : 'Dark mode'}
         >
-          {isDark ? <FaSun className="text-yellow-400" /> : <FaMoon className="text-gray-600" />}
+          {isDark ? (
+            <FaSun className="text-yellow-400" size={18} />
+          ) : (
+            <FaMoon className="text-gray-600" size={18} />
+          )}
         </button>
 
-        {/* Auth buttons */}
+        {/* Auth Section */}
         {user ? (
-          <button onClick={handleSignOut} className="btn btn-custom">
-            Sign Out
-          </button>
+          <div className="flex items-center gap-2">
+            <img
+              src={user.photoURL || userIcon}
+              alt="User Avatar"
+              className="w-10 h-10 rounded-full border-2 border-sky-400"
+            />
+            <button
+              onClick={handleSignOut}
+              className="btn btn-sm bg-red-400 text-white border-none hover:bg-red-500"
+            >
+              Logout
+            </button>
+          </div>
         ) : (
-          <>
-            <Link className="btn btn-custom" to="/login">Login</Link>
-            <p className="mx-2 text-2xl font-bold">OR</p>
-            <Link className="btn btn-custom" to="/register">Register</Link>
-          </>
+          <div className="flex items-center gap-2">
+            <Link className="btn btn-sm bg-sky-400 text-white border-none hover:bg-sky-500" to="/login">
+              Login
+            </Link>
+            <span className="font-semibold hidden sm:inline">OR</span>
+            <Link className="btn btn-sm bg-amber-400 text-white border-none hover:bg-amber-500" to="/register">
+              Register
+            </Link>
+          </div>
         )}
       </div>
     </div>

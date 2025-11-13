@@ -1,29 +1,44 @@
 import React from 'react';
-import furryFreind from '../../assets/furryFriend.jpg'
-import adpoted from '../../assets/adpotNow.jpg'
-import ownerPet from '../../assets/OwnerandPet.jpg'
-const Banner = () => {
-    return (
-        <div className=' w-[1200px] mx-auto mt-22 '>
-           <div className='flex gap-16'>
-            
-            <div className='ml-3 mt-2 mb-5'>
-                <h2 className='ml-3 font-bold text-2xl mb-5' >Find Your Furry Friend Today!</h2>
-                <img className='w-[350px] h-[300px] rounded-2xl'  src={furryFreind} alt="" />
-            </div>
-             <div className='mt-2 mb-5'>
-            <h2 className='font-bold text-2xl mb-5 ml-7'>“Adopt, Don’t Shop <br /> Give a Pet a Home.”</h2>
-            <img className='w-[350px] h-[300px] rounded-2xl' src={adpoted} alt="" />
-           </div>
-           <div className='mt-2 mb-5'>
-            <h2 className='font-bold text-2xl mb-5'>Because Every Pet Deserves <br /> Love and Care.</h2>
-            <img className='w-[350px] h-[300px] rounded-2xl' src={ownerPet} alt="" />
+import furryFriend from '../../assets/furryFriend.jpg';
+import adopted from '../../assets/adpotNow.jpg';
+import ownerPet from '../../assets/OwnerandPet.jpg';
 
-           </div>
-           </div>
-          
-        </div>
-    );
+const Banner = () => {
+  const bannerItems = [
+    {
+      title: 'Find Your Furry Friend Today!',
+      image: furryFriend,
+    },
+    {
+      title: '“Adopt, Don’t Shop — Give a Pet a Home.”',
+      image: adopted,
+    },
+    {
+      title: 'Because Every Pet Deserves Love and Care.',
+      image: ownerPet,
+    },
+  ];
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-10">
+      {/* Banner grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {bannerItems.map((item, index) => (
+          <div
+            key={index}
+            className="bg-[var(--bg-color)] text-[var(--text-color)] rounded-2xl shadow-md hover:shadow-lg transition-transform hover:scale-105 duration-300 p-4"
+          >
+            <h2 className="font-bold text-xl mb-4 text-center">{item.title}</h2>
+            <img
+              src={item.image}
+              alt={item.title}
+              className="w-full h-[250px] object-cover rounded-xl"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Banner;

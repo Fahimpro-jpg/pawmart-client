@@ -41,7 +41,7 @@ const Login = () => {
     }
 
     try {
-      // ✅ First check in MongoDB users collection
+      
       const res = await fetch(`http://localhost:3000/users`);
       const users = await res.json();
 
@@ -54,11 +54,11 @@ const Login = () => {
         return;
       }
 
-      // ✅ Sign in using Firebase Auth
+      
       await signInUser(email, password);
 
       toast.success(`Welcome back, ${existingUser.name} 🎉`);
-      navigate('/'); // Redirect to home
+      navigate('/'); 
 
     } catch (err) {
       console.log(err);

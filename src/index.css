@@ -1,28 +1,46 @@
 @import "tailwindcss";
 @plugin "daisyui";
 /* Light theme (default) */
-body {
+/* Light theme (default) */
+:root {
   --bg-color: #ffffff;
   --text-color: #1f2937; /* slate-900 */
   --btn-bg: #38bdf8;     /* sky-400 */
   --btn-text: #ffffff;
 }
 
+/* Dark theme */
 .dark-mode {
   --bg-color: #0f172a;   /* slate-900 */
   --text-color: #f8fafc; /* slate-100 */
   --btn-bg: #facc15;     /* amber-400 */
-  --btn-text: #1f2937;
+  --btn-text: #1f2937;   /* slate-900 */
 }
 
-/* Apply the colors */
+/* Apply colors globally */
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Example for buttons */
+/* Button style (custom) */
 .btn-custom {
   background-color: var(--btn-bg);
   color: var(--btn-text);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+.menu li a.active {
+  color: var(--btn-bg);
+  font-weight: bold;
 }
