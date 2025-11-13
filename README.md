@@ -11,8 +11,6 @@ It’s built with **React, Tailwind CSS, DaisyUI**, and **Firebase Authenticatio
 
 > _(Replace the link above with your actual Netlify deployment URL.)_
 
----
-
 ## ⚙️ Technologies Used
 
 - **React + Vite** for fast front-end performance
