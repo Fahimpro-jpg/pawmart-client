@@ -54,7 +54,7 @@ const AllProducts = () => {
   if (loading)
     return (
       <p className="text-center mt-10 text-lg animate__animated animate__flash text-[var(--text-color)]">
-        Loading products...
+       <span className="loading loading-spinner loading-md"></span>
       </p>
     );
 

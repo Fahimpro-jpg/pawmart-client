@@ -8,13 +8,7 @@ const MyListings = () => {
   const { user } = useContext(AuthContext);
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
-  useEffect(() => {
-    // Apply the theme to <body> on load or when toggled
-    document.body.classList.toggle("dark-mode", theme === "dark");
-    localStorage.setItem("theme", theme);
-  }, [theme]);
 
   useEffect(() => {
     if (user?.email) {

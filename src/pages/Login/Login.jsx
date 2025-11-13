@@ -1,21 +1,21 @@
-import React, { useState, use } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
-  const { signInWithGoogle, signInUser } = use(AuthContext);
+  const { signInWithGoogle, signInUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const handleToggle = (e) => {
-    e.preventDefault();
-    setShowPassword(!showPassword);
-  };
 
+  // Toggle password visibility
+  const handleToggle = () => setShowPassword(!showPassword);
+
+  // Handle login form
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -23,25 +23,19 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    // Validation
     if (!email) {
       setEmailError("Email is required");
       toast.error("Email is required!");
       return;
-    } else {
-      setEmailError("");
-    }
+    } else setEmailError("");
 
     if (!password) {
       setPasswordError("Password is required");
       toast.error("Password is required!");
       return;
-    } else {
-      setPasswordError("");
-    }
+    } else setPasswordError("");
 
     try {
-      
       const res = await fetch(`https://paw-mart-api-server.vercel.app/users`);
       const users = await res.json();
 
@@ -54,22 +48,20 @@ const Login = () => {
         return;
       }
 
-      
       await signInUser(email, password);
-
-      toast.success(`Welcome back, ${existingUser.name} 🎉`);
+      toast.success(`Welcome back, ${existingUser.name}!`);
       navigate('/'); 
-
     } catch (err) {
       console.log(err);
       toast.error("Login failed. Please try again.");
     }
   };
 
+  // Google Sign-in
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then(async (result) => {
-        toast.success('Google sign-in successful 🎉');
+        toast.success('Google sign-in successful');
 
         const newUser = {
           name: result.user.displayName,
@@ -90,7 +82,7 @@ const Login = () => {
           });
         }
 
-        navigate('/'); // Redirect after login
+        navigate('/'); 
       })
       .catch(error => {
         console.log(error);
@@ -99,39 +91,67 @@ const Login = () => {
   };
 
   return (
-    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl mx-auto mt-10">
+    <div
+      className="card w-full max-w-sm mx-auto mt-10 shadow-2xl transition-colors duration-500"
+      style={{
+        backgroundColor: "var(--bg-color)",
+        color: "var(--text-color)"
+      }}
+    >
       <div className="card-body">
-        <h2 className="text-center text-3xl font-semibold">Login Here</h2>
-        <form onSubmit={handleLogin} className="fieldset">
-          <label className="label">Email</label>
-          <input type="email" className="input" placeholder="Email" name="email" />
-          {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
+        <h2 className="text-center text-3xl font-semibold mb-4">
+          Login Here
+        </h2>
 
-          <label className="label">Password</label>
-          <input type="password" className="input" placeholder="Password" name="password" />
-          <button
-            onClick={handleToggle}
-            type="button"
-            className="btn btn-xs absolute top-2 right-5"
-          > {showPassword ? <FaEye size={18} /> : <FaEyeSlash size={18} />}</button>
-          {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
+        <form onSubmit={handleLogin} className="relative space-y-4">
+          <div>
+            <label className="block mb-1 font-medium">Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              className="input w-full border rounded-lg p-2 bg-transparent dark:bg-gray-800 text-[var(--text-color)] border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[var(--btn-bg)] outline-none transition"
+            />
+            {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
+          </div>
 
-          <p>
+          <div className="relative">
+            <label className="block mb-1 font-medium">Password</label>
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              className="input w-full border rounded-lg p-2 bg-transparent dark:bg-gray-800 text-[var(--text-color)] border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[var(--btn-bg)] outline-none transition"
+            />
+            <button
+              type="button"
+              onClick={handleToggle}
+              className="absolute top-2 right-2 text-gray-500 dark:text-gray-300"
+            >
+              {showPassword ? <FaEye size={18} /> : <FaEyeSlash size={18} />}
+            </button>
+            {passwordError && <p className="text-red-500 text-sm mt-1">{passwordError}</p>}
+          </div>
+
+          <p className="text-sm">
             Don't have an account?{" "}
-            <Link className="link link-hover text-blue-500" to="/register">
+            <Link className="text-blue-500 hover:underline" to="/register">
               Register Now!
             </Link>
           </p>
 
-          <button className="btn btn-neutral mt-4">Login</button>
+          <button
+            type="submit"
+            className="btn w-full mt-4 bg-[var(--btn-bg)] text-[var(--btn-text)] hover:opacity-90 transition text-white bg-black outline-0"
+          >
+            Login
+          </button>
         </form>
 
-        <button
-          onClick={handleGoogleSignIn}
-          className="btn bg-white text-black border-[#e5e5e5] mt-4"
-        >
-          Login with Google
-        </button>
+        <button onClick={handleGoogleSignIn} className="btn bg-white text-black border-[#e5e5e5]">
+  <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g><path d="m0 0H512V512H0" fill="#fff"></path><path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path><path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path><path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path><path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path></g></svg>
+  Login with Google
+</button>
       </div>
     </div>
   );

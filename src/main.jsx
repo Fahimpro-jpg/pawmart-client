@@ -20,6 +20,7 @@ import AddListing from './pages/AddListing/AddListing.jsx';
 import MyListings from './pages/MyListings/MyListings.jsx';
 import MyOrders from './pages/MyOrders/MyOrders.jsx';
 import UpdateListing from './pages/UpdateListing/UpdateListing.jsx';
+import ErrorPage from './pages/ErrorPage/ErrorPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
   }
 
     ]
+  },
+  {
+    path:'/*',
+    errorElement:<ErrorPage></ErrorPage>
   }
 ])
 
