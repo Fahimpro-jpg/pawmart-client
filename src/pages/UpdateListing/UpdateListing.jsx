@@ -10,7 +10,7 @@ const UpdateListing = () => {
 
   // 🧭 Fetch listing data
   useEffect(() => {
-    fetch(`http://localhost:3000/products/${id}`)
+    fetch(`https://paw-mart-api-server.vercel.app/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setListing(data);
@@ -36,7 +36,7 @@ const UpdateListing = () => {
     };
 
     try {
-      const res = await fetch(`http://localhost:3000/products/${id}`, {
+      const res = await fetch(`https://paw-mart-api-server.vercel.app/products/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedListing),

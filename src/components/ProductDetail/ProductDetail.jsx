@@ -15,7 +15,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const loadProduct = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/products/${id}`);
+        const res = await fetch(`https://paw-mart-api-server.vercel.app/products/${id}`);
         if (!res.ok) throw new Error(`Failed to fetch product (status ${res.status})`);
         const data = await res.json();
         setProduct(data);
@@ -50,7 +50,7 @@ const ProductDetail = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/orders", {
+      const res = await fetch("https://paw-mart-api-server.vercel.app/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(orderInfo),

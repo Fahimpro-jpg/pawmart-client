@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState,  } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link, NavLink } from 'react-router';
 import { FaMoon, FaSun, FaBars } from 'react-icons/fa';
 import logo from '../../assets/7a1c0287-194d-49f0-bf94-2fab8ac65b41.png';
@@ -6,7 +6,7 @@ import { AuthContext } from '../../contexts/AuthContext';
 import userIcon from "../../assets/user.png";
 
 const Navbar = () => {
-  const { user, signOutUser } = use(AuthContext);
+  const { user, signOutUser } = useContext(AuthContext);
 
   // Dark mode state
   const [isDark, setIsDark] = useState(() => {
@@ -35,13 +35,58 @@ const Navbar = () => {
 
   const links = (
     <>
-      <li><NavLink to="/" className="font-semibold">Home</NavLink></li>
-      <li><NavLink to="/petAndSupplies" className="font-semibold">Pet & Supplies</NavLink></li>
+      <li>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-[var(--btn-bg)]" : "font-semibold"
+          }
+        >
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/petAndSupplies"
+          className={({ isActive }) =>
+            isActive ? "font-semibold text-[var(--btn-bg)]" : "font-semibold"
+          }
+        >
+          Pet & Supplies
+        </NavLink>
+      </li>
       {user && (
         <>
-          <li><NavLink to="/addListings" className="font-semibold">Add Listings</NavLink></li>
-          <li><NavLink to="/myListings" className="font-semibold">My Listings</NavLink></li>
-          <li><NavLink to="/myOrders" className="font-semibold">My Orders</NavLink></li>
+          <li>
+            <NavLink
+              to="/addListings"
+              className={({ isActive }) =>
+                isActive ? "font-semibold text-[var(--btn-bg)]" : "font-semibold"
+              }
+            >
+              Add Listings
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/myListings"
+              className={({ isActive }) =>
+                isActive ? "font-semibold text-[var(--btn-bg)]" : "font-semibold"
+              }
+            >
+              My Listings
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/myOrders"
+              className={({ isActive }) =>
+                isActive ? "font-semibold text-[var(--btn-bg)]" : "font-semibold"
+              }
+            >
+              My Orders
+            </NavLink>
+          </li>
         </>
       )}
     </>
@@ -49,18 +94,18 @@ const Navbar = () => {
 
   return (
     <div
-      className="navbar bg-[var(--bg-color)] text-[var(--text-color)] shadow-md px-4 sticky top-0 z-50"
+      className="navbar bg-[var(--bg-color)] text-[var(--text-color)] shadow-md px-4 sticky top-0 z-50 transition-colors duration-300"
     >
       {/* Left Section - Logo */}
       <div className="navbar-start">
         {/* Mobile dropdown */}
         <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
+          <label tabIndex={0} className="btn btn-ghost lg:hidden border-none">
             <FaBars size={20} />
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 p-3 shadow bg-base-100 rounded-box w-52 z-50"
+            className="menu menu-sm dropdown-content mt-3 p-3 shadow rounded-box w-52 z-50 bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300"
           >
             {links}
           </ul>
@@ -94,7 +139,7 @@ const Navbar = () => {
           {isDark ? (
             <FaSun className="text-yellow-400" size={18} />
           ) : (
-            <FaMoon className="text-gray-600" size={18} />
+            <FaMoon className="text-sky-400" size={18} />
           )}
         </button>
 
@@ -108,18 +153,18 @@ const Navbar = () => {
             />
             <button
               onClick={handleSignOut}
-              className="btn btn-sm bg-red-400 text-white border-none hover:bg-red-500"
+              className="btn-custom bg-red-400 hover:bg-red-500"
             >
               Logout
             </button>
           </div>
         ) : (
           <div className="flex items-center gap-2">
-            <Link className="btn btn-sm bg-sky-400 text-white border-none hover:bg-sky-500" to="/login">
+            <Link className="btn-custom bg-[var(--btn-bg)] hover:opacity-90" to="/login">
               Login
             </Link>
             <span className="font-semibold hidden sm:inline">OR</span>
-            <Link className="btn btn-sm bg-amber-400 text-white border-none hover:bg-amber-500" to="/register">
+            <Link className="btn-custom bg-amber-400 hover:opacity-90" to="/register">
               Register
             </Link>
           </div>

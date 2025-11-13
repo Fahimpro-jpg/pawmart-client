@@ -1,12 +1,19 @@
+// src/pages/FeaturedListings/FeaturedListings.jsx
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 const FeaturedListings = () => {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/products/latest") // Server route already returns 6 latest products
+    AOS.init({ duration: 800, easing: "ease-out", once: true });
+
+    fetch("https://paw-mart-api-server.vercel.app/products/latest")
       .then((res) => res.json())
       .then((data) => {
         setListings(data);
@@ -23,7 +30,7 @@ const FeaturedListings = () => {
 
   return (
     <div className="max-w-6xl mx-auto mt-16 px-4">
-      <h2 className="text-3xl font-bold text-center mb-8 text-blue-600">
+      <h2 className="text-3xl font-bold text-center mb-8 text-[var(--btn-bg)]">
         Recent Listings
       </h2>
 
@@ -31,29 +38,62 @@ const FeaturedListings = () => {
         {listings.map((item) => (
           <div
             key={item._id}
-            className="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm hover:shadow-lg transition"
+            data-aos="fade-up"
+            className="relative bg-[var(--bg-color)] dark:bg-slate-800 rounded-xl p-4 shadow-md hover:shadow-2xl transition-transform transform hover:-translate-y-1 cursor-pointer"
           >
+            {/* Badge */}
+            <span
+              className={`absolute top-3 left-3 px-2 py-1 text-xs font-semibold rounded-full ${
+                item.price ? "bg-[var(--btn-bg)] text-[var(--btn-text)]" : "bg-green-500 text-white"
+              }`}
+              data-tooltip-id={`tooltip-${item._id}`}
+              data-tooltip-content={item.price ? `$${item.price}` : "Free for Adoption"}
+            >
+              {item.price ? "For Sale" : "Adoption"}
+            </span>
+
+            {/* Image */}
             <img
               src={item.image}
               alt={item.name}
-              className="w-full h-48 object-cover rounded-lg mb-4"
+              className="w-full h-48 object-cover rounded-lg mb-4 hover:scale-105 transition-transform duration-300"
             />
-            <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">
+
+            {/* Name */}
+            <h3
+              className="text-xl font-semibold mb-2 text-[var(--text-color)]"
+              data-tooltip-id={`tooltip-name-${item._id}`}
+              data-tooltip-content={`Category: ${item.category || "Not specified"}`}
+            >
               {item.name}
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-1">{item.category}</p>
-            <p className="text-gray-800 dark:text-gray-200 font-bold mb-1">
+
+            {/* Category */}
+            <p className="text-gray-500 dark:text-gray-300 mb-1">
+              {item.category || "Category not specified"}
+            </p>
+
+            {/* Price */}
+            <p className="text-gray-800 dark:text-gray-200 font-bold mb-2">
               {item.price ? `$${item.price}` : "Free for Adoption"}
             </p>
+
+            {/* Location */}
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
               {item.location || "Location not specified"}
             </p>
+
+            {/* Details Button */}
             <Link
               to={`/petAndSupplies/${item._id}`}
-              className="inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+              className="inline-block bg-[var(--btn-bg)] text-[var(--btn-text)] px-4 py-2 rounded-md hover:opacity-90 transition"
             >
               See Details
             </Link>
+
+            {/* Tooltips */}
+            <ReactTooltip id={`tooltip-${item._id}`} place="top" effect="solid" />
+            <ReactTooltip id={`tooltip-name-${item._id}`} place="top" effect="solid" />
           </div>
         ))}
       </div>

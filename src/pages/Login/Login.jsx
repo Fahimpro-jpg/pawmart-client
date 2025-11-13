@@ -42,7 +42,7 @@ const Login = () => {
 
     try {
       
-      const res = await fetch(`http://localhost:3000/users`);
+      const res = await fetch(`https://paw-mart-api-server.vercel.app/users`);
       const users = await res.json();
 
       const existingUser = users.find(
@@ -78,12 +78,12 @@ const Login = () => {
         };
 
         // Save Google user in MongoDB if not exists
-        const res = await fetch('http://localhost:3000/users');
+        const res = await fetch('https://paw-mart-api-server.vercel.app/users');
         const users = await res.json();
         const exists = users.find(user => user.email === newUser.email);
 
         if (!exists) {
-          await fetch('http://localhost:3000/users', {
+          await fetch('https://paw-mart-api-server.vercel.app/users', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newUser)

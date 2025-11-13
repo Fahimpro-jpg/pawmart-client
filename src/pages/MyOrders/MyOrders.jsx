@@ -13,7 +13,7 @@ const MyOrders = () => {
   // Helper to safely parse price
   const parsePrice = (price) => {
     if (!price) return 0;
-    const cleaned = String(price).replace(/[^0-9.]/g, ""); // remove non-numeric chars
+    const cleaned = String(price).replace(/[^0-9.]/g, ""); 
     return parseFloat(cleaned) || 0;
   };
 
@@ -21,7 +21,7 @@ const MyOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await fetch("http://localhost:3000/orders");
+        const res = await fetch("https://paw-mart-api-server.vercel.app/orders");
         const data = await res.json();
 
         const userOrders = data.filter(
@@ -104,7 +104,7 @@ const MyOrders = () => {
     return <p className="text-center text-lg mt-10">Loading your orders...</p>;
 
   return (
-    <div className="max-w-6xl mx-auto mt-10 bg-white p-6 rounded-lg shadow-lg">
+    <div className="max-w-6xl mx-auto mt-10 p-6 rounded-lg shadow-lg bg-gray-200">
       <Toaster position="top-center" />
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-semibold">My Orders</h2>
@@ -122,7 +122,7 @@ const MyOrders = () => {
         <p className="text-center text-gray-500">No orders found 😢</p>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table w-full border">
+          <table className="table w-full ">
             <thead className="bg-gray-100 text-gray-700">
               <tr>
                 <th>Product Name</th>

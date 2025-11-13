@@ -10,7 +10,7 @@ const MyListings = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/products?email=${user.email}`)
+      fetch(`https://paw-mart-api-server.vercel.app/products?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           setListings(data);
@@ -30,7 +30,7 @@ const MyListings = () => {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/products/${id}`, {
+      const res = await fetch(`https://paw-mart-api-server.vercel.app/products/${id}`, {
         method: 'DELETE',
       });
 
