@@ -8,7 +8,6 @@ const UpdateListing = () => {
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 🧭 Fetch listing data
   useEffect(() => {
     fetch(`https://paw-mart-api-server.vercel.app/products/${id}`)
       .then((res) => res.json())
@@ -23,7 +22,6 @@ const UpdateListing = () => {
       });
   }, [id]);
 
-  // 📝 Handle update form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -55,13 +53,21 @@ const UpdateListing = () => {
   if (loading)
     return (
       <div className="flex justify-center mt-20">
-        <span className="loading loading-spinner text-success"></span>
+        <span className="loading loading-spinner text-[var(--btn-bg)]"></span>
       </div>
     );
 
   return (
-    <div className="max-w-xl mx-auto bg-base-200 p-8 rounded-lg mt-10 shadow-lg">
-      <h2 className="text-2xl font-bold text-center mb-6">Update Listing</h2>
+    <div
+      className="max-w-xl mx-auto p-8 rounded-lg mt-10 shadow-lg transition-colors duration-300"
+      style={{
+        backgroundColor: "var(--bg-color)",
+        color: "var(--text-color)",
+      }}
+    >
+      <h2 className="text-2xl font-bold text-center mb-6 text-[var(--text-color)]">
+        Update Listing
+      </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
@@ -69,7 +75,7 @@ const UpdateListing = () => {
           type="text"
           defaultValue={listing.name}
           placeholder="Name"
-          className="input input-bordered w-full"
+          className="input input-bordered w-full bg-[var(--bg-color)] text-[var(--text-color)] border-gray-300 dark:border-gray-600"
           required
         />
 
@@ -78,7 +84,7 @@ const UpdateListing = () => {
           type="text"
           defaultValue={listing.category}
           placeholder="Category"
-          className="input input-bordered w-full"
+          className="input input-bordered w-full bg-[var(--bg-color)] text-[var(--text-color)] border-gray-300 dark:border-gray-600"
           required
         />
 
@@ -87,7 +93,7 @@ const UpdateListing = () => {
           type="number"
           defaultValue={listing.price}
           placeholder="Price"
-          className="input input-bordered w-full"
+          className="input input-bordered w-full bg-[var(--bg-color)] text-[var(--text-color)] border-gray-300 dark:border-gray-600"
         />
 
         <input
@@ -95,7 +101,7 @@ const UpdateListing = () => {
           type="text"
           defaultValue={listing.location}
           placeholder="Location"
-          className="input input-bordered w-full"
+          className="input input-bordered w-full bg-[var(--bg-color)] text-[var(--text-color)] border-gray-300 dark:border-gray-600"
         />
 
         <input
@@ -103,12 +109,12 @@ const UpdateListing = () => {
           type="text"
           defaultValue={listing.image}
           placeholder="Image URL"
-          className="input input-bordered w-full"
+          className="input input-bordered w-full bg-[var(--bg-color)] text-[var(--text-color)] border-gray-300 dark:border-gray-600"
         />
 
         <button
           type="submit"
-          className="btn w-full bg-blue-500 text-white hover:bg-blue-600"
+          className="btn-custom w-full bg-[var(--btn-bg)] text-[var(--btn-text)] hover:opacity-90 hover:scale-[1.02] mt-3"
         >
           Update Listing
         </button>

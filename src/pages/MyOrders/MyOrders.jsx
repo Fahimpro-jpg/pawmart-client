@@ -10,14 +10,14 @@ const MyOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Helper to safely parse price
+  // ✅ Parse price safely
   const parsePrice = (price) => {
     if (!price) return 0;
-    const cleaned = String(price).replace(/[^0-9.]/g, ""); 
+    const cleaned = String(price).replace(/[^0-9.]/g, "");
     return parseFloat(cleaned) || 0;
   };
 
-  // Fetch only the logged-in user's orders
+  // ✅ Fetch only logged-in user's orders
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -40,7 +40,7 @@ const MyOrders = () => {
     if (user?.email) fetchOrders();
   }, [user?.email]);
 
-  // Download PDF report
+  // ✅ Download PDF report
   const handleDownloadPDF = () => {
     if (!orders.length) {
       toast.error("No orders to download!");
@@ -74,7 +74,6 @@ const MyOrders = () => {
       order.phone,
     ]);
 
-    // Add table using autoTable
     autoTable(doc, {
       startY: 38,
       head: [tableColumn],
@@ -84,7 +83,6 @@ const MyOrders = () => {
       headStyles: { fillColor: [66, 133, 244] },
     });
 
-    // Add Total Price at the bottom
     const totalPrice = orders.reduce(
       (sum, order) => sum + parsePrice(order.price),
       0
@@ -101,29 +99,42 @@ const MyOrders = () => {
   };
 
   if (loading)
-    return <p className="text-center text-lg mt-10">Loading your orders...</p>;
+    return (
+      <div className="flex justify-center mt-16">
+        <span className="loading loading-spinner text-primary"></span>
+      </div>
+    );
 
   return (
-    <div className="max-w-6xl mx-auto mt-10 p-6 rounded-lg shadow-lg bg-gray-200">
+    <div
+      className="max-w-6xl mx-auto mt-10 p-6 rounded-lg shadow-md transition-all duration-300"
+      style={{
+        backgroundColor: "var(--bg-color)",
+        color: "var(--text-color)",
+      }}
+    >
       <Toaster position="top-center" />
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-semibold">My Orders</h2>
+
         {orders.length > 0 && (
-          <button
-            onClick={handleDownloadPDF}
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
-          >
+          <button onClick={handleDownloadPDF} className="btn-custom">
             Download Report
           </button>
         )}
       </div>
 
       {orders.length === 0 ? (
-        <p className="text-center text-gray-500">No orders found 😢</p>
+        <p className="text-center opacity-75">No orders found 😢</p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="table w-full ">
-            <thead className="bg-gray-100 text-gray-700">
+        <div className="overflow-x-auto rounded-lg shadow-md border border-gray-300/30">
+          <table className="table w-full">
+            <thead
+              style={{
+                backgroundColor: "rgba(0,0,0,0.05)",
+                color: "var(--text-color)",
+              }}
+            >
               <tr>
                 <th>Product Name</th>
                 <th>Buyer Name</th>
@@ -134,11 +145,22 @@ const MyOrders = () => {
                 <th>Phone</th>
               </tr>
             </thead>
+
             <tbody>
               {orders.map((order) => (
                 <tr
                   key={order._id}
-                  className="text-gray-700 hover:bg-gray-50 transition"
+                  className="transition-all"
+                  style={{
+                    color: "var(--text-color)",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.backgroundColor =
+                      "rgba(100, 100, 255, 0.1)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.backgroundColor = "transparent")
+                  }
                 >
                   <td>{order.productName}</td>
                   <td>{order.buyerName}</td>
