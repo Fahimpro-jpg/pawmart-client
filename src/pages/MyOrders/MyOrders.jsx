@@ -17,17 +17,15 @@ const MyOrders = () => {
     return parseFloat(cleaned) || 0;
   };
 
-  // ✅ Fetch only logged-in user's orders
+  // ✅ Fetch logged-in user's orders
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         const res = await fetch("https://paw-mart-api-server.vercel.app/orders");
         const data = await res.json();
-
         const userOrders = data.filter(
           (order) => order.buyerEmail === user?.email
         );
-
         setOrders(userOrders);
       } catch (error) {
         console.error("Error fetching orders:", error);
@@ -40,7 +38,7 @@ const MyOrders = () => {
     if (user?.email) fetchOrders();
   }, [user?.email]);
 
-  // ✅ Download PDF report
+  // ✅ Generate PDF
   const handleDownloadPDF = () => {
     if (!orders.length) {
       toast.error("No orders to download!");
@@ -80,13 +78,14 @@ const MyOrders = () => {
       body: tableRows,
       styles: { fontSize: 10 },
       theme: "grid",
-      headStyles: { fillColor: [66, 133, 244] },
+      headStyles: { fillColor: [56, 189, 248] }, // Sky-400 color
     });
 
     const totalPrice = orders.reduce(
       (sum, order) => sum + parsePrice(order.price),
       0
     );
+
     doc.setFontSize(12);
     doc.text(
       `Total Price: $${totalPrice.toFixed(2)}`,
@@ -101,79 +100,125 @@ const MyOrders = () => {
   if (loading)
     return (
       <div className="flex justify-center mt-16">
-        <span className="loading loading-spinner text-primary"></span>
+        <span className="loading loading-spinner text-[var(--btn-bg)]"></span>
       </div>
     );
 
   return (
     <div
-      className="max-w-6xl mx-auto mt-10 p-6 rounded-lg shadow-md transition-all duration-300"
+      className="max-w-6xl mx-auto mt-10 px-3 sm:px-6 lg:px-8 py-6 
+                 rounded-lg shadow-md transition-all duration-300 min-h-screen overflow-y-auto"
       style={{
         backgroundColor: "var(--bg-color)",
         color: "var(--text-color)",
       }}
     >
       <Toaster position="top-center" />
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-semibold">My Orders</h2>
+
+      {/* Header Section */}
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+        <h2
+          className="text-2xl sm:text-3xl font-bold"
+          style={{ color: "var(--text-color)" }}
+        >
+          My Orders
+        </h2>
 
         {orders.length > 0 && (
-          <button onClick={handleDownloadPDF} className="btn-custom">
+          <button
+            onClick={handleDownloadPDF}
+            className="btn-custom text-sm sm:text-base"
+          >
             Download Report
           </button>
         )}
       </div>
 
+      {/* Empty Orders */}
       {orders.length === 0 ? (
-        <p className="text-center opacity-75">No orders found 😢</p>
+        <p className="text-center opacity-80">No orders found 😢</p>
       ) : (
-        <div className="overflow-x-auto rounded-lg shadow-md border border-gray-300/30">
-          <table className="table w-full">
-            <thead
-              style={{
-                backgroundColor: "rgba(0,0,0,0.05)",
-                color: "var(--text-color)",
-              }}
-            >
-              <tr>
-                <th>Product Name</th>
-                <th>Buyer Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Address</th>
-                <th>Date</th>
-                <th>Phone</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {orders.map((order) => (
-                <tr
-                  key={order._id}
-                  className="transition-all"
-                  style={{
-                    color: "var(--text-color)",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.backgroundColor =
-                      "rgba(100, 100, 255, 0.1)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.backgroundColor = "transparent")
-                  }
-                >
-                  <td>{order.productName}</td>
-                  <td>{order.buyerName}</td>
-                  <td>${parsePrice(order.price).toFixed(2)}</td>
-                  <td>{order.quantity}</td>
-                  <td>{order.address}</td>
-                  <td>{order.date}</td>
-                  <td>{order.phone}</td>
+        <>
+          {/* 🧾 Table View (for md and up) */}
+          <div className="hidden md:block overflow-x-auto rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+            <table className="table w-full text-sm sm:text-base">
+              <thead
+                style={{
+                  backgroundColor: "var(--btn-bg)",
+                  color: "var(--btn-text)",
+                }}
+              >
+                <tr>
+                  <th>Product</th>
+                  <th>Buyer</th>
+                  <th>Price</th>
+                  <th>Qty</th>
+                  <th>Address</th>
+                  <th>Date</th>
+                  <th>Phone</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+
+              <tbody>
+                {orders.map((order) => (
+                  <tr
+                    key={order._id}
+                    className="transition-all"
+                    style={{
+                      backgroundColor: "var(--bg-color)",
+                      color: "var(--text-color)",
+                    }}
+                  >
+                    <td className="font-medium">{order.productName}</td>
+                    <td>{order.buyerName}</td>
+                    <td>${parsePrice(order.price).toFixed(2)}</td>
+                    <td>{order.quantity}</td>
+                    <td className="whitespace-nowrap">{order.address}</td>
+                    <td>{order.date}</td>
+                    <td>{order.phone}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* 📱 Card View (for mobile) */}
+          <div className="md:hidden space-y-4">
+            {orders.map((order) => (
+              <div
+                key={order._id}
+                className="p-4 rounded-lg shadow-md border border-gray-300 dark:border-gray-700"
+                style={{
+                  backgroundColor: "var(--bg-color)",
+                  color: "var(--text-color)",
+                }}
+              >
+                <h3 className="text-lg font-semibold mb-2">
+                  {order.productName}
+                </h3>
+                <p className="text-sm">
+                  <span className="font-medium">Buyer:</span> {order.buyerName}
+                </p>
+                <p className="text-sm">
+                  <span className="font-medium">Price:</span> $
+                  {parsePrice(order.price).toFixed(2)}
+                </p>
+                <p className="text-sm">
+                  <span className="font-medium">Qty:</span> {order.quantity}
+                </p>
+                <p className="text-sm">
+                  <span className="font-medium">Address:</span> {order.address}
+                </p>
+                <p className="text-sm">
+                  <span className="font-medium">Date:</span> {order.date}
+                </p>
+                <p className="text-sm">
+                  <span className="font-medium">Phone:</span> {order.phone}
+                </p>
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

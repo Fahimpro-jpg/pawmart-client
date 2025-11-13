@@ -41,24 +41,56 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link
-                to="/contact"
+              <p
+                
                 className="hover:text-[var(--btn-bg)] transition duration-200"
               >
-                Contact
-              </Link>
+                Condition and terms all applied
+              </p>
             </li>
             <li>
-              <Link
+              <p
                 to="/terms"
                 className="hover:text-[var(--btn-bg)] transition duration-200"
               >
-                Terms & Conditions
-              </Link>
+                Contact: +99934432376
+              </p>
             </li>
           </ul>
         </div>
 
+        <div>
+          <h3 className="text-xl font-semibold mb-3 text-[var(--btn-bg)]">
+            Contact Us
+          </h3>
+          <ul className="space-y-2 text-gray-300">
+            <li>
+              <a
+              href="https://www.facebook.com/share/1FXfaRNAx9/"
+                to="/"
+                className="hover:text-[var(--btn-bg)] transition duration-200"
+              >
+                facebook
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.instagram.com/fahadalamfahim/"
+                className="hover:text-[var(--btn-bg)] transition duration-200"
+              >
+                Instagram
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://x.com/"
+                className="hover:text-[var(--btn-bg)] transition duration-200"
+              >
+                twitter
+              </a>
+            </li>
+          </ul>
+        </div>
         {/* Copyright */}
         <div className="flex flex-col items-center md:items-end justify-center">
           <p className="text-sm text-gray-400">
