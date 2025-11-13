@@ -3,6 +3,7 @@ import Banner from '../Banner/Banner';
 import Categories from '../Categories/Categories';
 import FeaturedListings from '../FeaturedListings/FeaturedListings';
 import AdoptPawMart from '../AdoptPawMart/AdoptPawMart';
+import MetOurHero from '../MetOurHero/MetOurHero';
 
 
 
@@ -13,6 +14,7 @@ const Home = () => {
            <Categories></Categories>
           <FeaturedListings></FeaturedListings>
           <AdoptPawMart></AdoptPawMart>
+          <MetOurHero></MetOurHero>
         </div>
     );
 };

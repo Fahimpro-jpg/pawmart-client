@@ -1,23 +1,29 @@
 // src/pages/MyOrders/MyOrders.jsx
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { jsPDF } from "jspdf";
-import "jspdf-autotable";
+import autoTable from "jspdf-autotable";
 import toast, { Toaster } from "react-hot-toast";
 
 const MyOrders = () => {
-  const { user } = use(AuthContext);
+  const { user } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Fetch only user's orders
+  // Helper to safely parse price
+  const parsePrice = (price) => {
+    if (!price) return 0;
+    const cleaned = String(price).replace(/[^0-9.]/g, ""); // remove non-numeric chars
+    return parseFloat(cleaned) || 0;
+  };
+
+  // Fetch only the logged-in user's orders
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         const res = await fetch("http://localhost:3000/orders");
         const data = await res.json();
 
-        // Filter orders for logged-in user
         const userOrders = data.filter(
           (order) => order.buyerEmail === user?.email
         );
@@ -31,13 +37,16 @@ const MyOrders = () => {
       }
     };
 
-    if (user?.email) {
-      fetchOrders();
-    }
+    if (user?.email) fetchOrders();
   }, [user?.email]);
 
-  // ✅ Download PDF report
+  // Download PDF report
   const handleDownloadPDF = () => {
+    if (!orders.length) {
+      toast.error("No orders to download!");
+      return;
+    }
+
     const doc = new jsPDF();
     doc.setFontSize(16);
     doc.text("My Orders Report", 14, 16);
@@ -58,14 +67,15 @@ const MyOrders = () => {
     const tableRows = orders.map((order) => [
       order.productName,
       order.buyerName,
-      `$${order.price}`,
+      `$${parsePrice(order.price).toFixed(2)}`,
       order.quantity,
       order.address,
       order.date,
       order.phone,
     ]);
 
-    doc.autoTable({
+    // Add table using autoTable
+    autoTable(doc, {
       startY: 38,
       head: [tableColumn],
       body: tableRows,
@@ -73,6 +83,18 @@ const MyOrders = () => {
       theme: "grid",
       headStyles: { fillColor: [66, 133, 244] },
     });
+
+    // Add Total Price at the bottom
+    const totalPrice = orders.reduce(
+      (sum, order) => sum + parsePrice(order.price),
+      0
+    );
+    doc.setFontSize(12);
+    doc.text(
+      `Total Price: $${totalPrice.toFixed(2)}`,
+      14,
+      doc.lastAutoTable.finalY + 10
+    );
 
     doc.save("MyOrders_Report.pdf");
     toast.success("Report downloaded successfully!");
@@ -120,7 +142,7 @@ const MyOrders = () => {
                 >
                   <td>{order.productName}</td>
                   <td>{order.buyerName}</td>
-                  <td>${order.price}</td>
+                  <td>${parsePrice(order.price).toFixed(2)}</td>
                   <td>{order.quantity}</td>
                   <td>{order.address}</td>
                   <td>{order.date}</td>

@@ -19,6 +19,7 @@ import PrivateRoute from './Routes/PrivateRoute.jsx';
 import AddListing from './pages/AddListing/AddListing.jsx';
 import MyListings from './pages/MyListings/MyListings.jsx';
 import MyOrders from './pages/MyOrders/MyOrders.jsx';
+import UpdateListing from './pages/UpdateListing/UpdateListing.jsx';
 
 const router = createBrowserRouter([
   {
@@ -66,7 +67,10 @@ const router = createBrowserRouter([
         element:<CategoryFilteredProduct></CategoryFilteredProduct>
       ,
     },
-   
+   {
+  path: "/update-listing/:id",
+  element: <UpdateListing></UpdateListing>,
+  }
 
     ]
   }
